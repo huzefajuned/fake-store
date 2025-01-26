@@ -2,15 +2,28 @@ import useProducts from "../hook/useProducts";
 import Loader from "../components/Loader";
 import { productInterafce } from "../types/common";
 import SingleProduct from "../components/Single-Product";
-import { handleScrollToBottom } from "../utils/commom";
+import { useCallback, useState } from "react";
+import { isBottomReached } from "../utils/commom";
 
 const ProductContainer = () => {
-  const { products, loading, error } = useProducts();
+  const [offset, setOffset] = useState<number>(5); // Manage offset
+
+  const { products, loading, error } = useProducts({ offset });
 
   console.log("products :", products);
 
+  const handleScrollToBottom = useCallback(
+    (event: any) => {
+      isBottomReached(event, () => {
+        setOffset((prevOffset) => prevOffset + 5);
+      });
+    },
+    [setOffset]
+  );
   if (loading) return <Loader />;
   if (error) return null;
+
+
 
   return (
     <div className="bg-gray-100 flex flex-col w-screen h-screen p-4">

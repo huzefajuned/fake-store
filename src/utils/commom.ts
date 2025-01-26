@@ -8,7 +8,7 @@ export const endUrls: endUrlsInterface = {
 
 // handleScrollToBottom
 
- export function handleScrollToBottom(event: any) {
+export function isBottomReached(event: any, onBottomReached: () => void) {
   // Retrieve the target element from the event object
   const element = event.target;
   // Get the height of the visible portion of the element (viewport height)
@@ -19,7 +19,9 @@ export const endUrls: endUrlsInterface = {
   const scrollHeight = element.scrollHeight;
 
   if (!element) return;
+
   if (scrollHeight <= clientHeight + scrollTop) {
-    console.log(" reached on bottom ;");
+    console.log('onBottomReached triggred !')
+    onBottomReached(); // Trigger the callback
   }
 }

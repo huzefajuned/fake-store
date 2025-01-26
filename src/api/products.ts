@@ -1,7 +1,16 @@
 const fakeURI = "https://api.escuelajs.co/api/v1/products";
 
 // separate API interaction logic.
-export const fetchProductsAPI = async ({ limit = 0, offset = 0 }) => {
+export const fetchProductsAPI = async ({
+  limit,
+  offset,
+}: {
+  limit: number;
+  offset: number;
+}) => {
+
+  console.log('limit ', limit);
+  console.log('offset :', offset)
   const url = `${fakeURI}?limit=${limit}&offset=${offset}`;
   const response = await fetch(url);
 
