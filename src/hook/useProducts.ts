@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { fetchProductsAPI } from "../api/products";
+import { productInterafce } from "../types/common";
 
 const useProducts = () => {
   // simple states for { products, loading, error}
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<productInterafce[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<null | string>(null);
 
@@ -11,12 +12,12 @@ const useProducts = () => {
   async function fetchProducts() {
     setLoading(true);
     try {
-      const json = await fetchProductsAPI();
+      const json = await fetchProductsAPI({ limit: 5, offset: 10 });
       if (json) {
-        setProducts(json);
+        setProducts([...products, ...json]);
       }
     } catch (error: any) {
-      if (error) {
+      if (error) {  
         setError(error);
       }
     } finally {

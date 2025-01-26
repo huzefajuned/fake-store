@@ -2,16 +2,22 @@ export interface endUrlsInterface {
   products: string;
 }
 
-export interface ratingInterface {
-  rate: number;
-  count: number;
-}
+// single product
 export interface productInterafce {
-  category: string;
+  [x: string]: any;
+  length: number;
+  category: {
+    creationAt: string;
+    id: number;
+    image: string;
+    name: string;
+    updatedAt: string;
+  };
+  creationAt: string;
   description: string;
   id: number;
-  image: string;
+  images: string[];
   price: number;
-  rating: ratingInterface;
   title: string;
+  updatedAt: string;
 }
